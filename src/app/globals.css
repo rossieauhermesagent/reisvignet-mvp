@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #533afd;
-  --color-navy: #061b31;
-  --color-slate: #64748d;
-  --color-border: #e5edf5;
+  --color-primary: #ff385c;
+  --color-accent: #008489;
+  --color-navy: #222222;
+  --color-slate: #717171;
+  --color-border: #dddddd;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #061b31;
+  --foreground: #222222;
 }
 
 body {
@@ -19,15 +20,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.stripe-shadow {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 45px -30px, rgba(0, 0, 0, 0.1) 0px 18px 36px -18px;
+.airbnb-shadow {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
 
-.stripe-gradient {
-  background: linear-gradient(135deg, #533afd 0%, #2e2b8c 100%);
-}
-
-.kenteken-font {
-  font-family: 'Source Code Pro', monospace;
-  letter-spacing: -0.05em;
+.kenteken-plate {
+  background: #ffdb00;
+  border: 2px solid #000;
+  border-radius: 6px;
 }

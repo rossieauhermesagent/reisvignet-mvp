@@ -1,129 +1,167 @@
 "use client";
 
 import KentekenCheck from "@/components/KentekenCheck";
-import { ShieldCheck, Truck, Clock, ArrowRight } from "lucide-react";
+import { ShieldCheck, Truck, Clock, ArrowRight, Star, MapPin } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white selection:bg-blue-100">
-      {/* Navigation */}
-      <nav className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-        <div className="text-[#533AFD] font-extrabold text-2xl tracking-tighter">
-          REISVIGNET<span className="text-[#061B31]">.NL</span>
+    <main className="min-h-screen bg-[#FCFCFC] selection:bg-[#ff385c]/10">
+      {/* Dynamic Top Bar */}
+      <div className="bg-[#222222] text-white text-[12px] py-2 px-6 flex justify-between items-center font-medium tracking-tight">
+        <div className="flex gap-4">
+          <span className="opacity-60 italic">Vignetten voor 2026 nu beschikbaar</span>
+          <span className="hidden md:inline text-[#008489]">● iDEAL geactiveerd</span>
         </div>
-        <div className="hidden md:flex gap-8 text-sm font-medium text-[#64748B]">
-          <a href="#" className="hover:text-[#061B31] transition-colors">Frankrijk</a>
-          <a href="#" className="hover:text-[#061B31] transition-colors">Zwitserland</a>
-          <a href="#" className="hover:text-[#061B31] transition-colors">Hulp & Contact</a>
+        <div className="flex gap-2 items-center">
+          <Star size={12} className="fill-[#ff385c] text-[#ff385c]" />
+          <span>4.9/5 op Trustpilot</span>
         </div>
-        <button className="bg-[#533AFD]/10 text-[#533AFD] px-4 py-2 rounded-full text-sm font-bold hover:bg-[#533AFD]/20 transition-colors">
-          Status Aanvraag
-        </button>
+      </div>
+
+      {/* Main Navigation */}
+      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-5">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="bg-[#ff385c] w-8 h-8 rounded-lg flex items-center justify-center text-white rotate-3">
+              <MapPin size={18} />
+            </div>
+            <div className="text-[#222222] font-black text-2xl tracking-tighter">
+              REISVIGNET<span className="text-[#ff385c]">.NL</span>
+            </div>
+          </div>
+          
+          <div className="hidden lg:flex gap-10 text-[15px] font-semibold text-[#222222]">
+            <a href="#" className="hover:text-[#ff385c] transition-colors">Frankrijk</a>
+            <a href="#" className="hover:text-[#ff385c] transition-colors">Zwitserland</a>
+            <a href="#" className="hover:text-[#ff385c] transition-colors">Oostenrijk</a>
+            <a href="#" className="hover:text-[#ff385c] transition-colors">Hulpvragen</a>
+          </div>
+
+          <button className="bg-white border-2 border-[#222222] text-[#222222] px-6 py-2.5 rounded-2xl text-sm font-black hover:bg-[#222222] hover:text-white transition-all active:scale-95 shadow-sm">
+            STATUS CHECK
+          </button>
+        </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden pt-16 pb-24 px-4">
-        {/* Background Decorative Gradients */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-20">
-          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#533AFD] blur-[120px] rounded-full" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#EA2261] blur-[120px] rounded-full" />
-        </div>
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-[#061B31] mb-6 leading-[1.1]">
-            Zorgeloos op reis met het <br />
-            <span className="text-[#533AFD]">juiste vignet.</span>
+      {/* Hero Experience */}
+      <div className="relative pt-20 pb-32 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-[#ff385c]/5 text-[#ff385c] px-4 py-1.5 rounded-full text-sm font-bold mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ff385c] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ff385c]"></span>
+            </span>
+            Klaar voor de zomer van 2026
+          </div>
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-[#222222] mb-8 leading-[0.95]">
+            Jouw reis, <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff385c] to-[#e31c5f]">geregeld.</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-12 text-[#64748B] max-w-2xl mx-auto font-light leading-relaxed">
-            Voorkom boetes in milieuzones en op snelwegen. Binnen 2 minuten geregeld met iDEAL en je kenteken.
+          <p className="text-xl md:text-2xl mb-16 text-[#717171] max-w-2xl mx-auto font-medium leading-normal tracking-tight">
+            Geen vreemde talen, geen gedoe. Direct je vignetten en milieustickers op basis van je kenteken.
           </p>
           <KentekenCheck />
         </div>
       </div>
 
-      {/* Trust Items */}
-      <div className="bg-[#F6F9FC] py-12 border-y border-[#E5EDF5]">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
-          <div className="flex items-start gap-4">
-            <div className="bg-white p-2 rounded-lg stripe-shadow"><ShieldCheck className="text-[#533AFD]" /></div>
-            <div>
-              <h4 className="font-bold text-[#061B31]">Directe aanvraag</h4>
-              <p className="text-sm text-[#64748B]">Geen gedoe met logins of Franse formulieren.</p>
+      {/* Feature Section */}
+      <div className="max-w-6xl mx-auto py-24 px-6 grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <div className="bg-[#008489] w-12 h-1 text-white mb-6" />
+          <h2 className="text-4xl md:text-5xl font-black text-[#222222] mb-8 tracking-tighter leading-tight italic">
+            Waarom kiezen voor <br /> Reisvignet.nl?
+          </h2>
+          <div className="space-y-8">
+            <div className="flex gap-6 group">
+              <div className="bg-white p-4 rounded-3xl airbnb-shadow group-hover:scale-110 transition-transform"><ShieldCheck className="text-[#008489]" size={28} /></div>
+              <div>
+                <h4 className="font-bold text-xl text-[#222222]">100% Officieel</h4>
+                <p className="text-[#717171] leading-relaxed">Wij zijn geautoriseerd tussenpersoon voor alle Europese vignet-diensten.</p>
+              </div>
+            </div>
+            <div className="flex gap-6 group">
+              <div className="bg-white p-4 rounded-3xl airbnb-shadow group-hover:scale-110 transition-transform"><Clock className="text-[#008489]" size={28} /></div>
+              <div>
+                <h4 className="font-bold text-xl text-[#222222]">Razendsnelle Verwerking</h4>
+                <p className="text-[#717171] leading-relaxed">Ons systeem koppelt direct aan de officiële databases voor directe uitgifte.</p>
+              </div>
             </div>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="bg-white p-2 rounded-lg stripe-shadow"><Clock className="text-[#533AFD]" /></div>
-            <div>
-              <h4 className="font-bold text-[#061B31]">Snel resultaat</h4>
-              <p className="text-sm text-[#64748B]">E-vignetten vaak al binnen het uur in je mailbox.</p>
-            </div>
+        </div>
+        <div className="relative">
+          <div className="aspect-square bg-gradient-to-tr from-gray-100 to-gray-50 rounded-[64px] border border-gray-100 p-8 flex items-center justify-center overflow-hidden">
+             <div className="text-[120px] font-black opacity-[0.03] absolute rotate-12 -right-8">EUROPE</div>
+             <div className="relative z-10 text-center">
+                <div className="text-7xl font-black text-[#222222] mb-2 leading-none">NL / FR</div>
+                <div className="text-[#ff385c] font-black tracking-[1em] text-sm ml-4 uppercase">Connected</div>
+             </div>
           </div>
-          <div className="flex items-start gap-4">
-            <div className="bg-white p-2 rounded-lg stripe-shadow"><Truck className="text-[#533AFD]" /></div>
-            <div>
-              <h4 className="font-bold text-[#061B31]">Post-verzending</h4>
-              <p className="text-sm text-[#64748B]">Stickers veilig per post vanuit Frankrijk verstuurd.</p>
+          <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-3xl airbnb-shadow max-w-[240px] border border-gray-50">
+            <p className="text-[#717171] text-sm font-medium mb-2 italic">&quot;Heerlijk om in het Nederlands alles te kunnen regelen. Top service!&quot;</p>
+            <div className="flex gap-1 text-[#ff385c]"><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/></div>
+          </div>
+        </div>
+      </div>
+
+      {/* High-End Product Selection */}
+      <div className="bg-[#222222] py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+            <h2 className="text-5xl md:text-7xl font-extrabold text-white tracking-tighter">
+              Kies je <br /> <span className="text-[#717171]">bestemming.</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* France Card */}
+            <div className="group bg-neutral-900 border border-neutral-800 p-12 rounded-[48px] hover:border-[#ff385c] transition-all relative overflow-hidden text-left">
+              <div className="relative z-10">
+                <div className="text-white opacity-40 font-bold mb-4 tracking-widest text-xs uppercase italic">Beschikbaar</div>
+                <h3 className="text-4xl font-black text-white mb-4">Frankrijk <br /> <span className="text-[#ff385c]">Crit&apos;Air.</span></h3>
+                <p className="text-neutral-400 mb-10 text-lg font-medium leading-relaxed max-w-xs">De enige officiële manier om de milieuzones te betreden.</p>
+                <div className="flex items-center gap-8">
+                   <div>
+                     <span className="text-neutral-500 text-xs font-bold uppercase block mb-1">Prijs</span>
+                     <span className="text-3xl font-black text-white italic">€19,95</span>
+                   </div>
+                   <button className="flex-1 bg-white text-black py-5 rounded-[20px] font-black flex items-center justify-center gap-2 group-hover:bg-[#ff385c] group-hover:text-white transition-all active:scale-95">
+                      BESTEL NU <ArrowRight size={20} />
+                   </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Swiss Card */}
+            <div className="group bg-white border border-gray-100 p-12 rounded-[48px] hover:border-[#008489] transition-all relative overflow-hidden text-left airbnb-shadow">
+               <div className="relative z-10">
+                <div className="text-[#008489] font-bold mb-4 tracking-widest text-xs uppercase italic">Direct actief</div>
+                <h3 className="text-4xl font-black text-[#222222] mb-4">Zwitserland <br /> <span className="text-[#008489]">E-vignet.</span></h3>
+                <p className="text-[#717171] mb-10 text-lg font-medium leading-relaxed max-w-xs">Gekoppeld aan je kenteken. Geen sticker op de ruit nodig.</p>
+                <div className="flex items-center gap-8">
+                   <div>
+                     <span className="text-[#717171] text-xs font-bold uppercase block mb-1">Prijs</span>
+                     <span className="text-3xl font-black text-[#222222] italic font-serif">€49,95</span>
+                   </div>
+                   <button className="flex-1 bg-[#222222] text-white py-5 rounded-[20px] font-black flex items-center justify-center gap-2 group-hover:bg-[#008489] transition-all active:scale-95">
+                      DIRECT ACTIVEREN <ArrowRight size={20} />
+                   </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Product Cards */}
-      <div className="max-w-6xl mx-auto py-24 px-6">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#061B31] mb-2 text-left">Beschikbare vignetten</h2>
-            <p className="text-[#64748B] font-medium text-left">Selecteer je bestemming of doorreisland.</p>
-          </div>
+      <footer className="py-20 text-center border-t border-gray-100 max-w-4xl mx-auto px-6">
+        <div className="text-[#222222] font-black text-xl mb-4">REISVIGNET<span className="text-[#ff385c]">.NL</span></div>
+        <p className="text-[#717171] text-sm font-medium leading-relaxed mb-6 italic">
+          Onderdeel van de Rossieau Agent Network. Wij maken reizen door Europa eenvoudiger door techniek te combineren met officieel reisadvies.
+        </p>
+        <div className="flex justify-center gap-6 text-[#222222] font-bold text-sm uppercase tracking-widest">
+           <a href="#" className="hover:text-[#ff385c]">Privacy</a>
+           <a href="#" className="hover:text-[#ff385c]">Voorwaarden</a>
+           <a href="#" className="hover:text-[#ff385c]">Contact</a>
         </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Card 1 */}
-          <div className="group bg-white p-10 rounded-3xl stripe-shadow border border-[#E5EDF5] hover:border-[#533AFD] transition-all cursor-pointer relative overflow-hidden text-left">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <img src="https://flagcdn.com/w160/fr.png" alt="FR" className="w-24 grayscale" />
-            </div>
-            <div className="bg-red-50 text-red-600 px-3 py-1 rounded-full text-xs font-bold w-fit mb-6">MILIEUZONES</div>
-            <h3 className="text-3xl font-bold text-[#061B31] mb-3">Frankrijk Crit&apos;Air</h3>
-            <p className="text-[#64748B] mb-8 leading-relaxed max-w-sm">
-              Verplicht voor steden als Parijs, Lyon en vliegvelden. Geldig zolang je auto rijdt.
-            </p>
-            <div className="flex items-center justify-between mt-auto">
-              <div>
-                <span className="text-sm text-[#64748B] block font-medium">Vanaf</span>
-                <span className="text-3xl font-bold text-[#061B31]">€19,45</span>
-              </div>
-              <div className="bg-[#533AFD] text-white p-3 rounded-full group-hover:scale-110 transition-transform">
-                <ArrowRight size={24} />
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="group bg-[#061B31] p-10 rounded-3xl stripe-shadow transition-all cursor-pointer relative overflow-hidden text-left">
-             <div className="absolute top-0 right-0 p-8 opacity-10">
-              <img src="https://flagcdn.com/w160/ch.png" alt="CH" className="w-24 grayscale invert" />
-            </div>
-            <div className="bg-white/10 text-white px-3 py-1 rounded-full text-xs font-bold w-fit mb-6 uppercase tracking-wider">Snelwegvignet</div>
-            <h3 className="text-3xl font-bold text-white mb-3">Zwitserland E-vignet</h3>
-            <p className="text-white/60 mb-8 leading-relaxed max-w-sm">
-              Sinds 2024 volledig digitaal. Direct gekoppeld aan je kenteken, geen sticker nodig.
-            </p>
-            <div className="flex items-center justify-between mt-auto">
-              <div>
-                <span className="text-sm text-white/50 block font-medium">Vanaf</span>
-                <span className="text-3xl font-bold text-white">€49,95</span>
-              </div>
-              <div className="bg-white text-[#061B31] p-3 rounded-full group-hover:scale-110 transition-transform">
-                <ArrowRight size={24} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <footer className="bg-[#F6F9FC] py-12 text-center border-t border-[#E5EDF5]">
-        <p className="text-[#64748B] text-sm">&copy; 2026 Reisvignet.nl - Geen officiële overheidsinstantie maar een onafhankelijke tussenpersoon.</p>
       </footer>
     </main>
   );
