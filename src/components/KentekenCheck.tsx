@@ -24,7 +24,7 @@ export default function KentekenCheck() {
       if (res.ok) {
         setVehicle(data);
       } else {
-        setError(data.error || "Er is iets misgegaan");
+        setError(data.error || "Bekijk of het kenteken klopt");
       }
     } catch (err) {
       setError("Kon gegevens niet ophalen");
@@ -34,54 +34,54 @@ export default function KentekenCheck() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-100">
-      <h2 className="text-xl font-bold mb-4 text-gray-800">Check je voertuig</h2>
-      <form onSubmit={handleCheck} className="flex gap-2">
-        <div className="relative flex-1">
-          <input
-            type="text"
-            value={plate}
-            onChange={(e) => setPlate(e.target.value.toUpperCase())}
-            placeholder="XX-123-X"
-            className="w-full px-4 py-3 bg-yellow-400 text-black font-bold text-center text-xl rounded-md border-2 border-black placeholder:text-gray-700 outline-none uppercase"
-            maxLength={10}
-          />
-        </div>
+    <div className="w-full max-w-lg mx-auto bg-white p-2 rounded-2xl stripe-shadow border border-white/20 backdrop-blur-xl">
+      <form onSubmit={handleCheck} className="flex items-center bg-[#F6F9FC] rounded-xl p-1 border border-[#E5EDF5]">
+        <input
+          type="text"
+          value={plate}
+          onChange={(e) => setPlate(e.target.value.toUpperCase())}
+          placeholder="XX-123-X"
+          className="flex-1 bg-transparent px-6 py-4 text-2xl font-bold uppercase placeholder:text-[#AAB7C4] text-[#061B31] outline-none kenteken-font"
+          maxLength={10}
+        />
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-md transition-colors disabled:opacity-50"
+          className="bg-[#533AFD] hover:bg-[#4434D4] text-white font-bold px-8 py-4 rounded-lg transition-all disabled:opacity-50 flex items-center gap-2"
         >
-          {loading ? <Loader2 className="animate-spin" /> : <Search />}
+          {loading ? <Loader2 className="animate-spin" size={20} /> : <Search size={20} />}
+          <span>Check</span>
         </button>
       </form>
 
       {error && (
-        <p className="mt-3 text-red-500 text-sm font-medium">{error}</p>
+        <div className="px-6 py-3 text-red-500 text-sm font-medium animate-in fade-in duration-300">
+          {error}
+        </div>
       )}
 
       {vehicle && (
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200 animate-in fade-in slide-in-from-top-2">
-          <div className="flex items-center gap-3 mb-3 text-blue-600">
-            <Car size={24} />
-            <h3 className="font-bold text-lg">Voertuig gevonden</h3>
+        <div className="mt-2 p-6 border-t border-[#F6F9FC] animate-in fade-in slide-in-from-top-2 duration-500">
+          <div className="flex items-center gap-3 mb-4 text-[#533AFD]">
+            <Car size={20} />
+            <h3 className="font-semibold text-[#061B31]">Voertuig geïdentificeerd</h3>
           </div>
-          <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
-              <p className="text-gray-500">Merk</p>
-              <p className="font-semibold">{vehicle.merk}</p>
+              <p className="text-[#64748B] text-xs uppercase tracking-wider font-semibold mb-1">Merk</p>
+              <p className="font-medium text-[#061B31]">{vehicle.merk}</p>
             </div>
             <div>
-              <p className="text-gray-500">Model</p>
-              <p className="font-semibold">{vehicle.handelsbenaming}</p>
+              <p className="text-[#64748B] text-xs uppercase tracking-wider font-semibold mb-1">Model</p>
+              <p className="font-medium text-[#061B31]">{vehicle.handelsbenaming}</p>
             </div>
             <div>
-              <p className="text-gray-500">Brandstof</p>
-              <p className="font-semibold">{vehicle.brandstof}</p>
+              <p className="text-[#64748B] text-xs uppercase tracking-wider font-semibold mb-1">Brandstof</p>
+              <p className="font-medium text-[#061B31] tracking-tight">{vehicle.brandstof}</p>
             </div>
             <div>
-              <p className="text-gray-500">Bouwjaar</p>
-              <p className="font-semibold">{vehicle.bouwjaar}</p>
+              <p className="text-[#64748B] text-xs uppercase tracking-wider font-semibold mb-1">Bouwjaar</p>
+              <p className="font-medium text-[#061B31]">{vehicle.bouwjaar}</p>
             </div>
           </div>
         </div>
