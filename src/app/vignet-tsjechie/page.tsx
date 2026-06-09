@@ -1,4 +1,4 @@
-import { CheckCircle, Globe, Zap, Shield } from "lucide-react";
+import { CheckCircle, Globe, Shield, Zap } from "lucide-react";
 
 export const metadata = {
   title: 'Vignet Tsjechië 2026 Aanvragen (Elektronická dálniční známka) | Reisvignet.nl',
@@ -29,8 +29,8 @@ export default function TsjechiePage() {
       </div>
 
       <div className="max-w-4xl mx-auto py-20 px-6">
-        <div className="grid md:grid-cols-2 gap-16 mb-20">
-          <div className="text-left">
+        <div className="grid md:grid-cols-2 gap-16 mb-20 text-left">
+          <div>
             <h2 className="text-3xl font-black mb-6 tracking-tight italic text-[#11457E]">Direct op weg naar Praag?</h2>
             <p className="text-[#717171] leading-relaxed mb-6 font-medium">
               Het Tsjechische vignet is volledig digitaal. Wij koppelen je kenteken direct aan de centrale database van het Tsjechische ministerie van Verkeer. Geen wachttijd, geen fysieke sticker.

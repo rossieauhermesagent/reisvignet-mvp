@@ -1,4 +1,4 @@
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Route } from "lucide-react";
 
 export const metadata = {
   title: 'Vignet Slovenië 2026 Aanvragen (E-vignet) | Reisvignet.nl',
@@ -10,21 +10,24 @@ export default function SloveniePage() {
     <main className="min-h-screen bg-white">
       <div className="bg-[#005da4] text-white py-16 px-6">
         <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 mb-4 opacity-70 italic font-bold tracking-widest text-sm uppercase">
+            <Route size={18} /> Route via Ljubljana
+          </div>
           <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tighter leading-none italic">
             E-vignet <br /> <span className="text-white/80">Slovenië.</span>
           </h1>
-          <p className="text-xl text-white/60 font-medium">
-            Op weg naar de Sloveense kust of doorreizen naar Kroatië? Het E-vignet voor Slovenië is verplicht en eenvoudig online te regelen.
+          <p className="text-xl text-white/60 font-medium max-w-2xl">
+            Op weg naar de Sloveense kust of doorreizen naar Kroatië? Het E-vignet voor Slovenië is verplicht en eenvoudig online te regelen op basis van je kenteken.
           </p>
         </div>
       </div>
 
       <div className="max-w-4xl mx-auto py-20 px-6">
-        <h2 className="text-3xl font-black mb-8 italic tracking-tight">Sloveens Tolvignet (DARS)</h2>
+        <h2 className="text-3xl font-black mb-8 italic tracking-tight text-[#005da4]">Sloveens Tolvignet (DARS)</h2>
         <div className="grid md:grid-cols-2 gap-16">
           <div className="text-[#717171] leading-relaxed space-y-6 font-medium text-left">
              <p>Sinds 2022 kent Slovenië alleen nog maar digitale vignetten. Deze zijn gekoppeld aan je kenteken en worden gecontroleerd door camera&apos;s langs de snelweg en bij de vignet-controleurs van DARS.</p>
-             <p>Let op: Voor voertuigen boven de 3500kg (zoals zware campers) geldt een apart tolsysteem (DarsGo).</p>
+             <p>Let op: Voor voertuigen boven de 3500kg (zoals zware campers) geldt een apart tolsysteem (DarsGo). Voor de Karawankentunnel betaal je apart tol.</p>
           </div>
           <div className="space-y-4">
              {[
