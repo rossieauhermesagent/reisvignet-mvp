@@ -64,7 +64,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className=\"bg-[#ff385c] w-8 h-8 rounded-lg flex items-center justify-center text-white rotate-3\">
+            <div className="bg-[#ff385c] w-8 h-8 rounded-lg flex items-center justify-center text-white rotate-3">
               <MapPin size={18} />
             </div>
             <div className="text-[#222222] font-black text-2xl tracking-tighter">
