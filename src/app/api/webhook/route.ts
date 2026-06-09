@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { orderSwissVignette } from '@/lib/bots/swiss-bot';
+import { sendOrderConfirmation } from '@/lib/email';
 
 export async function POST(req: Request) {
-  const body = await req.text();
+...[truncated]
   const signature = req.headers.get('stripe-signature') as string;
 
   let event;
@@ -18,18 +19,34 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object as any;
-    
-    const kenteken = session.metadata?.kenteken;
-    const productId = session.metadata?.productId;
-    const email = session.customer_details?.email;
+    // Als de betaling is gelukt, stuur bevestiging en start eventuele bot
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object as any;
+      const kenteken = session.metadata?.kenteken;
+      const productId = session.metadata?.productId;
+      const email = session.customer_details?.email;
 
-    console.log(`Betaling ontvangen voor ${kenteken} (${productId}) door ${email}`);
+      const countryMap: { [key: string]: string } = {
+        'zwitserland-vignet': 'Zwitserland',
+        'frankrijk-sticker': 'Frankrijk',
+        'oostenrijk-vignet': 'Oostenrijk',
+        'duitsland-sticker': 'Duitsland'
+      };
 
-    // Als het een Zwitsers vignet is, start de bot
-    if (productId === 'zwitserland-vignet' && kenteken) {
-      // We draaien dit "fire and forget" op de achtergrond of awaiten het
+      const country = countryMap[productId] || 'Europa';
+
+      // 1. Stuur direct de e-mail bevestiging
+      if (email && kenteken) {
+        await sendOrderConfirmation(email, {
+          kenteken,
+          country,
+          orderNumber: session.id.slice(-8).toUpperCase()
+        });
+      }
+
+      // 2. Als het een Zwitsers vignet is, start de bot
+      if (productId === 'zwitserland-vignet' && kenteken) {
+...[truncated]
       // Op Vercel moet je rekening houden met de 10s-30s timeout voor serverless functions
       try {
         const result = await orderSwissVignette({
