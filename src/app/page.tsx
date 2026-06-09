@@ -87,10 +87,10 @@ export default function Home() {
           </div>
           
           <div className="hidden lg:flex gap-10 text-[15px] font-semibold text-[#222222]">
-            <a href="#" className="hover:text-[#ff385c] transition-colors">Frankrijk</a>
-            <a href="#" className="hover:text-[#ff385c] transition-colors">Zwitserland</a>
-            <a href="#" className="hover:text-[#ff385c] transition-colors">Oostenrijk</a>
-            <a href="#" className="hover:text-[#ff385c] transition-colors">Hulpvragen</a>
+            <a href="/frankrijk" className="hover:text-[#ff385c] transition-colors">Frankrijk</a>
+            <a href="/zwitserland" className="hover:text-[#ff385c] transition-colors">Zwitserland</a>
+            <a href="/oostenrijk" className="hover:text-[#ff385c] transition-colors">Oostenrijk</a>
+            <a href="/hulp" className="hover:text-[#ff385c] transition-colors">Hulpvragen</a>
           </div>
 
           <button 
@@ -235,9 +235,9 @@ export default function Home() {
           Onderdeel van de Rossieau Agent Network. Wij maken reizen door Europa eenvoudiger door techniek te combineren met officieel reisadvies.
         </p>
         <div className="flex justify-center gap-6 text-[#222222] font-bold text-sm uppercase tracking-widest">
-           <a href="#" className="hover:text-[#ff385c]">Privacy</a>
-           <a href="#" className="hover:text-[#ff385c]">Voorwaarden</a>
-           <a href="#" className="hover:text-[#ff385c]">Contact</a>
+           <a href="/privacy" className="hover:text-[#ff385c]">Privacy</a>
+           <a href="/voorwaarden" className="hover:text-[#ff385c]">Voorwaarden</a>
+           <a href="mailto:info@reisvignet.nl" className="hover:text-[#ff385c]">Contact</a>
         </div>
       </footer>
     </main>
