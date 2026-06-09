@@ -75,29 +75,33 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-10">
             {/* France Card */}
             <div className={`group bg-neutral-900 border ${selectedCountry === 'FR' ? 'border-[#ff385c] ring-2 ring-[#ff385c]/20' : 'border-neutral-800'} p-12 rounded-[48px] hover:border-[#ff385c] transition-all relative overflow-hidden text-left shadow-2xl`}>
-              {/* ... Content ... */}
-                   <button 
+              <div>
+               {/* ... Content ... */}
+                 <div className="flex gap-4">
+                   <button
                      onClick={() => startCheckout('frankrijk-sticker')}
                      disabled={loading}
                      className="flex-1 bg-white text-black py-5 rounded-[20px] font-black flex items-center justify-center gap-2 group-hover:bg-[#ff385c] group-hover:text-white transition-all active:scale-95 disabled:opacity-50"
                    >
                       {loading ? 'Laden...' : <>BESTEL NU <ArrowRight size={20} /></>}
                    </button>
-                </div>
+                 </div>
               </div>
             </div>
 
             {/* Swiss Card */}
             <div className={`group bg-white border ${selectedCountry === 'CH' ? 'border-[#008489] ring-2 ring-[#008489]/20' : 'border-gray-100'} p-12 rounded-[48px] hover:border-[#008489] transition-all relative overflow-hidden text-left airbnb-shadow`}>
+              <div>
                {/* ... Content ... */}
-                   <button 
+                 <div className="flex gap-4">
+                   <button
                      onClick={() => startCheckout('zwitserland-vignet')}
                      disabled={loading}
                      className="flex-1 bg-222222 text-white py-5 rounded-[20px] font-black flex items-center justify-center gap-2 group-hover:bg-[#008489] transition-all active:scale-95 disabled:opacity-50"
                    >
                       {loading ? 'Laden...' : <>DIRECT ACTIVEREN <ArrowRight size={20} /></>}
                    </button>
-                </div>
+                 </div>
               </div>
             </div>
           </div>

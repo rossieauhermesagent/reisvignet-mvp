@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { Search, Car, Loader2, CheckCircle2 } from "lucide-react";
 
-export default function KentekenCheck() {
+interface KentekenCheckProps {
+  onVehicleFound?: (vehicle: any) => void;
+}
+
+export default function KentekenCheck({ onVehicleFound }: KentekenCheckProps) {
   const [plate, setPlate] = useState("");
   const [loading, setLoading] = useState(false);
   const [vehicle, setVehicle] = useState<any>(null);
@@ -19,8 +23,10 @@ export default function KentekenCheck() {
     try {
       const res = await fetch(`/api/rdw?plate=${plate}`);
       const data = await res.json();
-      if (res.ok) setVehicle(data);
-      else setError(data.error || "Controleer je kenteken");
+      if (res.ok) {
+        setVehicle(data);
+        onVehicleFound?.(data);
+      } else setError(data.error || "Controleer je kenteken");
     } catch (err) {
       setError("Fout bij ophalen gegevens");
     } finally {
