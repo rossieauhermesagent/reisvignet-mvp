@@ -1,9 +1,13 @@
 "use client";
 
 import KentekenCheck from "@/components/KentekenCheck";
+import EuropeMapSelector from "@/components/EuropeMapSelector";
 import { ShieldCheck, Truck, Clock, ArrowRight, Star, MapPin } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+
   return (
     <main className="min-h-screen bg-[#FCFCFC] selection:bg-[#ff385c]/10">
       {/* Dynamic Top Bar */}
@@ -60,7 +64,11 @@ export default function Home() {
           <p className="text-xl md:text-2xl mb-16 text-[#717171] max-w-2xl mx-auto font-medium leading-normal tracking-tight">
             Geen vreemde talen, geen gedoe. Direct je vignetten en milieustickers op basis van je kenteken.
           </p>
-          <KentekenCheck />
+          
+          <div className="grid lg:grid-cols-[1.2fr,0.8fr] gap-12 items-start text-left">
+            <KentekenCheck />
+            <EuropeMapSelector onSelect={setSelectedCountry} />
+          </div>
         </div>
       </div>
 

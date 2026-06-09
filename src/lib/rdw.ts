@@ -2,7 +2,8 @@ export async function getVehicleData(licensePlate: string) {
   const cleanPlate = licensePlate.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
   
   try {
-    const response = await fetch(`https://opendata.rdw.nl/resource/m9gs-ivj3.json?kenteken=${cleanPlate}`);
+    // Gebruik de 'Personenauto' dataset (8ys7-iw2y) voor basisgegevens
+    const response = await fetch(`https://opendata.rdw.nl/resource/8ys7-iw2y.json?kenteken=${cleanPlate}`);
     const data = await response.json();
     
     if (!data || data.length === 0) {
