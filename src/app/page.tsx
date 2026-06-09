@@ -2,6 +2,7 @@
 
 import KentekenCheck from "@/components/KentekenCheck";
 import EuropeMapSelector from "@/components/EuropeMapSelector";
+import StatusModal from "@/components/StatusModal";
 import { ShieldCheck, Clock, ArrowRight, Star, MapPin } from "lucide-react";
 import { useState } from "react";
 
@@ -9,6 +10,7 @@ export default function Home() {
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [kenteken, setKenteken] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
 
   const handleKentekenFound = (plate: string) => {
     setKenteken(plate);
@@ -28,9 +30,16 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId, kenteken }),
       });
-      const { sessionId, error } = await res.json();
-      if (error) throw new Error(error);
-      window.location.href = sessionId;
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || "Server fout");
+      }
+      
+      if (data.sessionId) {
+        window.location.href = data.sessionId;
+      }
     } catch (err: any) {
       alert("Checkout fout: " + err.message);
     } finally {
@@ -48,6 +57,11 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#FCFCFC] selection:bg-[#ff385c]/10">
+      <StatusModal 
+        isOpen={isStatusModalOpen} 
+        onClose={() => setIsStatusModalOpen(false)} 
+      />
+
       {/* Dynamic Top Bar */}
       <div className="bg-[#222222] text-white text-[12px] py-2 px-6 flex justify-between items-center font-medium tracking-tight">
         <div className="flex gap-4">
@@ -79,7 +93,10 @@ export default function Home() {
             <a href="#" className="hover:text-[#ff385c] transition-colors">Hulpvragen</a>
           </div>
 
-          <button className="bg-white border-2 border-[#222222] text-[#222222] px-6 py-2.5 rounded-2xl text-sm font-black hover:bg-[#222222] hover:text-white transition-all active:scale-95 shadow-sm">
+          <button 
+            onClick={() => setIsStatusModalOpen(true)}
+            className="bg-white border-2 border-[#222222] text-[#222222] px-6 py-2.5 rounded-2xl text-sm font-black hover:bg-[#222222] hover:text-white transition-all active:scale-95 shadow-sm"
+          >
             STATUS CHECK
           </button>
         </div>
@@ -143,7 +160,7 @@ export default function Home() {
              </div>
           </div>
           <div className="absolute -bottom-8 -left-8 bg-white p-8 rounded-3xl airbnb-shadow max-w-[240px] border border-gray-50">
-            <p className="text-[#717171] text-sm font-medium mb-2 italic">{"\""}Heerlijk om in het Nederlands alles te kunnen regelen. Top service!{"\""}</p>
+            <p className="text-[#717171] text-sm font-medium mb-2 italic">{"\"Heerlijk om in het Nederlands alles te kunnen regelen. Top service!\""}</p>
             <div className="flex gap-1 text-[#ff385c]"><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/><Star size={12} className="fill-current"/></div>
           </div>
         </div>
