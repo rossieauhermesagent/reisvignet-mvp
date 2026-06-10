@@ -3,7 +3,7 @@ import { stripe } from '@/lib/stripe';
 
 export async function POST(request: Request) {
   try {
-    const { productId, kenteken } = await request.json();
+    const { productId, kenteken, vin, frontImage, backImage } = await request.json();
 
     const prices: Record<string, { price: string, name: string }> = {
       'frankrijk-sticker': { price: 'price_FR_STICKER', name: 'Milieusticker Frankrijk' },
@@ -12,7 +12,13 @@ export async function POST(request: Request) {
 
     const product = prices[productId];
 
-    const session = await stripe.checkout.sessions.create({
+    // Bij Frankrijk voegen we de extra documenten toe in metadata
+    // Let op: Stripe metadata heeft limiet van 500 chars per value. 
+    // Voor echte grote images gebruiken we normaal Cloudinary/S3, 
+    // maar voor dit stadium markeren we aanwezigheid of gebruiken we Stripe Files API indien nodig.
+    // Voor nu sturen we VIN mee en zetten we een flag voor images.
+    
+    const sessionConfig: any = {
       payment_method_types: ['ideal', 'card'],
       line_items: [
         {
@@ -32,11 +38,20 @@ export async function POST(request: Request) {
       metadata: {
         kenteken,
         productId,
+        vin: vin || '',
+        hasImages: frontImage ? 'true' : 'false'
       },
-    });
+    };
+
+    // Als we images hebben, kunnen we die niet direct in metadata proppen (te groot).
+    // In een serieuzere setup zouden we ze hier uploaden naar een storage bucket 
+    // en de URL in metadata zetten.
+    
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     return NextResponse.json({ sessionId: session.url });
   } catch (err: any) {
+    console.error('Checkout error:', err);
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }

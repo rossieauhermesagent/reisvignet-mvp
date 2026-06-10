@@ -19,46 +19,50 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
   }
 
-    // Als de betaling is gelukt, stuur bevestiging en start eventuele bot
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object as any;
-      const kenteken = session.metadata?.kenteken;
-      const productId = session.metadata?.productId;
-      const email = session.customer_details?.email;
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object as any;
+    const kenteken = session.metadata?.kenteken;
+    const productId = session.metadata?.productId;
+    const vin = session.metadata?.vin;
+    const email = session.customer_details?.email;
+    const hasImages = session.metadata?.hasImages === 'true';
 
-      const countryMap: { [key: string]: string } = {
-        'zwitserland-vignet': 'Zwitserland',
-        'frankrijk-sticker': 'Frankrijk',
-        'oostenrijk-vignet': 'Oostenrijk',
-        'duitsland-sticker': 'Duitsland'
-      };
+    const countryMap: { [key: string]: string } = {
+      'zwitserland-vignet': 'Zwitserland',
+      'frankrijk-sticker': 'Frankrijk',
+      'oostenrijk-vignet': 'Oostenrijk',
+      'duitsland-sticker': 'Duitsland'
+    };
 
-      const country = countryMap[productId] || 'Europa';
+    const country = countryMap[productId] || 'Europa';
 
-      // 1. Stuur direct de e-mail bevestiging
-      if (email && kenteken) {
-        await sendOrderConfirmation(email, {
-          kenteken,
-          country,
-          orderNumber: session.id.slice(-8).toUpperCase()
-        });
-      }
+    // 1. Stuur bevestiging naar klant én admin (Quincy)
+    if (email && kenteken) {
+      await sendOrderConfirmation(email, {
+        kenteken,
+        country,
+        orderNumber: session.id.slice(-8).toUpperCase(),
+        vin,
+        hasImages
+      });
+    }
 
-      // 2. Als het een Zwitsers vignet is, start de bot
-      if (productId === 'zwitserland-vignet' && kenteken) {
-      // Op Vercel moet je rekening houden met de 10s-30s timeout voor serverless functions
+    // 2. Als het een Zwitsers vignet is, start de bot
+    if (productId === 'zwitserland-vignet' && kenteken) {
       try {
         const result = await orderSwissVignette({
           kenteken: kenteken,
-          land: 'NL', // Standaard voor jouw NL klanten
+          land: 'NL',
           email: email || 'info@reisvignet.nl'
         });
-        
         console.log(`Bot resultaat voor ${kenteken}:`, result);
       } catch (botError) {
         console.error(`Bot fail voor ${kenteken}:`, botError);
       }
     }
+    
+    // Voor Frankrijk is er momenteel nog geen bot, 
+    // dus de fallback mail naar Quincy is hier de primaire 'verwerking'.
   }
 
   return NextResponse.json({ received: true });
