@@ -4,7 +4,7 @@ import { orderSwissVignette } from '@/lib/bots/swiss-bot';
 import { sendOrderConfirmation } from '@/lib/email';
 
 export async function POST(req: Request) {
-...[truncated]
+  const body = await req.text();
   const signature = req.headers.get('stripe-signature') as string;
 
   let event;
@@ -46,7 +46,6 @@ export async function POST(req: Request) {
 
       // 2. Als het een Zwitsers vignet is, start de bot
       if (productId === 'zwitserland-vignet' && kenteken) {
-...[truncated]
       // Op Vercel moet je rekening houden met de 10s-30s timeout voor serverless functions
       try {
         const result = await orderSwissVignette({
