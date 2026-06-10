@@ -88,29 +88,29 @@ export default function Home() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff385c] to-[#e31c5f]">geregeld.</span>
           </h1>
           
-          {step === 'kenteken' ? (
-            <div className="grid lg:grid-cols-[1.2fr,0.8fr] gap-12 items-start text-left">
-              <KentekenCheck onVehicleFound={(v) => handleKentekenFound(v.kenteken)} />
-              <EuropeMapSelector onSelect={scrollToProducts} />
-            </div>
-          ) : (
-            <div className="max-w-2xl mx-auto text-left">
+          <div className="grid lg:grid-cols-[1.2fr,0.8fr] gap-12 items-start text-left">
+            <KentekenCheck onVehicleFound={(v) => handleKentekenFound(v.kenteken)} />
+            <EuropeMapSelector onSelect={scrollToProducts} />
+          </div>
+        </div>
+      </div>
+
+      {/* Feature Section en Product Selection */}
+      <div id="products-section" className="bg-[#222222] py-32 px-6">
+        <div className="max-w-6xl mx-auto">
+          {step === 'special_fields' && (
+            <div className="max-w-2xl mx-auto text-left mb-20 bg-white p-8 rounded-[32px] shadow-2xl animate-in zoom-in-95 duration-300">
               <button 
                 onClick={() => setStep('kenteken')}
                 className="flex items-center gap-2 text-[#717171] font-bold mb-4 hover:text-[#222222] transition-colors"
               >
-                <ArrowLeft size={18} /> Terug naar check
+                <ArrowLeft size={18} /> Annuleren
               </button>
+              <h2 className="text-2xl font-black text-[#222222] mb-6">Aanvullende gegevens Frankrijk</h2>
               <FranceVehicleForm onComplete={handleFranceComplete} loading={loading} />
             </div>
           )}
-        </div>
-      </div>
 
-      {/* Feature Section en Product Selection blijven gelijk voor context */}
-      {/* ... (rest van de UI) ... */}
-      <div id="products-section" className="bg-[#222222] py-32 px-6">
-        <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-10">
             {/* France Card */}
             <div className={`group bg-neutral-900 border ${selectedCountry === 'FR' ? 'border-[#ff385c] ring-2 ring-[#ff385c]/20' : 'border-neutral-800'} p-12 rounded-[48px] hover:border-[#ff385c] transition-all relative overflow-hidden text-left shadow-2xl`}>
