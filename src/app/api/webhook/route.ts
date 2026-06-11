@@ -13,10 +13,16 @@ export async function POST(req: Request) {
   console.log('Signature:', signature ? 'Present' : 'MISSING');
 
   try {
+    const secret = process.env.STRIPE_WEBHOOK_SECRET;
+    if (!secret) {
+      console.error('CRITICAL: STRIPE_WEBHOOK_SECRET is not defined in environment variables');
+      return NextResponse.json({ error: 'Webhook secret not configured' }, { status: 500 });
+    }
+
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
+      secret
     );
     console.log('Event Type Verified:', event.type);
   } catch (err: any) {
