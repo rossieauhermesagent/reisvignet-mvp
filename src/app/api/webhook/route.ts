@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { orderSwissVignette } from '@/lib/bots/swiss-bot';
 import { sendOrderConfirmation } from '@/lib/email';
 
 export async function POST(req: Request) {
@@ -66,25 +65,6 @@ export async function POST(req: Request) {
       } catch (emailError: any) {
         console.error('Email Sending Error:', emailError.message || emailError);
       }
-    }
-
-    // 2. Als het een Zwitsers vignet is, start de bot (GEÏSOLEERD)
-    if (productId === 'zwitserland-vignet' && kenteken) {
-      // We gebruiken IIFE om de bot flow te isoleren van de hoofd-webhook respons
-      (async () => {
-        try {
-          console.log(`Starting Swiss Automation Bot for ${kenteken}...`);
-          const { orderSwissVignette: orderFn } = await import('@/lib/bots/swiss-bot');
-          const result = await orderFn({
-            kenteken: kenteken,
-            land: 'NL',
-            email: email || 'info@reisvignet.nl'
-          });
-          console.log(`Swiss Bot Result for ${kenteken}:`, result);
-        } catch (botError: any) {
-          console.error(`Swiss Bot Execution Error (Isolated):`, botError.message || botError);
-        }
-      })();
     }
   }
 
