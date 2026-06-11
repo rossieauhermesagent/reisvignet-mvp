@@ -54,7 +54,7 @@ export async function POST(req: Request) {
     // 1. Stuur bevestiging naar klant én admin (Quincy)
     if (email && kenteken) {
       try {
-        console.log(`Attempting to send email to customer (${email}) and admin...`);
+        console.log(`Sending confirmation for order ${session.id} to ${email}`);
         await sendOrderConfirmation(email, {
           kenteken,
           country,
@@ -62,25 +62,29 @@ export async function POST(req: Request) {
           vin,
           hasImages
         });
-        console.log('Emails successfully queued/sent');
+        console.log('Confirmation emails sent successfully');
       } catch (emailError: any) {
-        console.error('CRITICAL: Email Sending Failed:', emailError.message);
+        console.error('Email Sending Error:', emailError.message || emailError);
       }
     }
 
-    // 2. Als het een Zwitsers vignet is, start de bot
+    // 2. Als het een Zwitsers vignet is, start de bot (GEÏSOLEERD)
     if (productId === 'zwitserland-vignet' && kenteken) {
-      try {
-        console.log(`Starting Swiss Automation Bot for ${kenteken}...`);
-        const result = await orderSwissVignette({
-          kenteken: kenteken,
-          land: 'NL',
-          email: email || 'info@reisvignet.nl'
-        });
-        console.log(`Swiss Bot Result for ${kenteken}:`, result);
-      } catch (botError: any) {
-        console.error(`Swiss Bot Error for ${kenteken}:`, botError.message);
-      }
+      // We gebruiken IIFE om de bot flow te isoleren van de hoofd-webhook respons
+      (async () => {
+        try {
+          console.log(`Starting Swiss Automation Bot for ${kenteken}...`);
+          const { orderSwissVignette: orderFn } = await import('@/lib/bots/swiss-bot');
+          const result = await orderFn({
+            kenteken: kenteken,
+            land: 'NL',
+            email: email || 'info@reisvignet.nl'
+          });
+          console.log(`Swiss Bot Result for ${kenteken}:`, result);
+        } catch (botError: any) {
+          console.error(`Swiss Bot Execution Error (Isolated):`, botError.message || botError);
+        }
+      })();
     }
   }
 
