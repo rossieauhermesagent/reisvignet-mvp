@@ -48,6 +48,7 @@ export async function POST(request: Request) {
     // en de URL in metadata zetten.
     
     const session = await stripe.checkout.sessions.create(sessionConfig);
+    console.log(`Checkout Session created: ${session.id} for ${kenteken}`);
 
     return NextResponse.json({ sessionId: session.url });
   } catch (err: any) {
