@@ -117,7 +117,7 @@ export default function Home() {
               {selectedCountry === 'FR' && <div className="absolute top-8 right-8 bg-[#ff385c] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Geselecteerd</div>}
               <div className="relative z-10">
                 <div className="text-white opacity-40 font-bold mb-4 tracking-widest text-xs uppercase italic">Beschikbaar</div>
-                <h3 className="text-4xl font-black text-white mb-4">Frankrijk <br /> <span className=\"text-[#ff385c]\">Crit&apos;Air.</span></h3>
+                <h3 className="text-4xl font-black text-white mb-4">Frankrijk <br /> <span className="text-[#ff385c]">Crit&apos;Air.</span></h3>
                 <p className="text-neutral-400 mb-10 text-lg font-medium leading-relaxed max-w-xs">De enige officiële manier om de milieuzones te betreden.</p>
                 <div className="flex items-center gap-8">
                    <div>
@@ -140,7 +140,7 @@ export default function Home() {
               {selectedCountry === 'CH' && <div className="absolute top-8 right-8 bg-[#008489] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest animate-pulse">Geselecteerd</div>}
                <div className="relative z-10">
                 <div className="text-[#008489] font-bold mb-4 tracking-widest text-xs uppercase italic">Direct actief</div>
-                <h3 className="text-4xl font-black text-[#222222] mb-4">Zwitserland <br /> <span className=\"text-[#008489]\">E-vignet.</span></h3>
+                <h3 className="text-4xl font-black text-[#222222] mb-4">Zwitserland <br /> <span className="text-[#008489]">E-vignet.</span></h3>
                 <p className="text-[#717171] mb-10 text-lg font-medium leading-relaxed max-w-xs">Gekoppeld aan je kenteken. Geen sticker op de ruit nodig.</p>
                 <div className="flex items-center gap-8">
                    <div>
