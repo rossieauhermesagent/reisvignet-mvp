@@ -1,13 +1,14 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.example.com',
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: process.env.SMTP_SECURE === 'true',
+  host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: true, // Forceer SSL voor poort 465
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
+  timeout: 10000, // 10 seconden timeout
 });
 
 export async function sendOrderConfirmation(email: string, orderDetails: {
@@ -17,7 +18,7 @@ export async function sendOrderConfirmation(email: string, orderDetails: {
   vin?: string,
   hasImages?: boolean
 }) {
-  // 1. Mail naar de klant
+  console.log(`Paging SMTP: ${process.env.SMTP_HOST}:${process.env.SMTP_PORT} as ${process.env.SMTP_USER}`);
   const customerMailOptions = {
     from: `"Reisvignet.nl" <${process.env.SMTP_USER}>`,
     to: email,
