@@ -36,8 +36,9 @@ export async function POST(req: Request) {
     const kenteken = session.metadata?.kenteken;
     const productId = session.metadata?.productId;
     const vin = session.metadata?.vin;
-    const email = session.customer_details?.email;
-    const hasImages = session.metadata?.hasImages === 'true';
+    const { kenteken, productId, email, vin, images } = session.metadata || {};
+    const hasImages = !!(images && images !== '[]');
+    const imageHashes = hasImages ? JSON.parse(images) : [];
 
     console.log('Order Details:', { kenteken, productId, email });
 
@@ -50,7 +51,7 @@ export async function POST(req: Request) {
 
     const country = countryMap[productId] || 'Europa';
 
-    // 1. Stuur bevestiging naar klant én admin (Quincy)
+    // 1. Stuur data naar n8n
     if (email && kenteken) {
       try {
         console.log(`Sending confirmation for order ${session.id} to ${email}`);
@@ -59,14 +60,16 @@ export async function POST(req: Request) {
           country,
           orderNumber: session.id.slice(-8).toUpperCase(),
           vin,
-          hasImages
+          hasImages,
+          imageHashes, // Nieuw: stuur hashes mee voor n8n
+          customerDetails: session.customer_details // Nieuw: stuur adresgegevens van Stripe mee
         });
-        console.log('Confirmation emails sent successfully');
+        console.log('Forwarded to n8n successfully');
       } catch (emailError: any) {
-        console.error('Email Sending Error:', emailError.message || emailError);
+        console.error('n8n Forwarding Error:', emailError.message || emailError);
       }
     }
-  }
+
 
   return NextResponse.json({ received: true });
 }

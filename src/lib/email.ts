@@ -15,7 +15,9 @@ export async function sendOrderConfirmation(email: string, orderDetails: {
   country: string,
   orderNumber: string,
   vin?: string,
-  hasImages?: boolean
+  hasImages?: boolean,
+  imageHashes?: string[],
+  customerDetails?: any
 }) {
   const N8N_WEBHOOK_URL = process.env.N8N_WEBHOOK_URL || 'https://n8n.reisvignet.nl/webhook/order-confirmation';
 
