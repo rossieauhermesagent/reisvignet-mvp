@@ -1,15 +1,14 @@
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.hostinger.com',
+  host: (process.env.SMTP_HOST as string) || 'smtp.hostinger.com',
   port: Number(process.env.SMTP_PORT) || 465,
-  secure: true, // Forceer SSL voor poort 465
+  secure: true,
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.SMTP_USER as string,
+    pass: process.env.SMTP_PASS as string,
   },
-  timeout: 10000, // 10 seconden timeout
-});
+} as any);
 
 export async function sendOrderConfirmation(email: string, orderDetails: {
   kenteken: string,
