@@ -20,6 +20,10 @@ export async function POST(request: Request) {
     
     const sessionConfig: any = {
       payment_method_types: ['ideal', 'card'],
+      billing_address_collection: 'required',
+      shipping_address_collection: {
+        allowed_countries: ['NL', 'BE', 'DE', 'AT', 'FR', 'ES', 'IT'],
+      },
       line_items: [
         {
           price_data: {
