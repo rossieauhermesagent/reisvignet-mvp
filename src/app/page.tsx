@@ -95,7 +95,7 @@ export default function Home() {
               <p className="text-blue-100 mb-6 text-sm leading-relaxed">Doorrijden in FR, IT, ES & PT via de telepeage-poorten.</p>
               <div className="flex justify-between items-center mt-auto">
                 <span className="text-2xl font-black text-white italic">€24,95</span>
-                <button onClick={() => startCheckout('tolbadge-europa')} className="bg-white text-blue-800 px-6 py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform uppercase tracking-tighter font-serif">Aanvragen</button>
+                <button onClick={() => startCheckout('tolbadge-europa')} className="bg-white text-blue-800 px-6 py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform uppercase tracking-tighter">Bestel</button>
               </div>
             </div>
           </div>
