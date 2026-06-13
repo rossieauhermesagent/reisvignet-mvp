@@ -4,6 +4,7 @@ import KentekenCheck from "@/components/KentekenCheck";
 import EuropeMapSelector from "@/components/EuropeMapSelector";
 import FranceVehicleForm from "@/components/france/FranceVehicleForm";
 import TolbadgeForm from "@/components/TolbadgeForm";
+import ElegantModal from "@/components/ElegantModal";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 
@@ -12,6 +13,8 @@ export default function Home() {
   const [kenteken, setKenteken] = useState<string>("");
   const [step, setStep] = useState<'kenteken' | 'special_fields'>('kenteken');
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: "", message: "" });
 
   const handleKentekenFound = (plate: string) => {
     setKenteken(plate);
@@ -21,7 +24,11 @@ export default function Home() {
   const startCheckout = async (productId: string, additionalData?: any) => {
     if (!kenteken) {
       document.getElementById('kenteken-section')?.scrollIntoView({ behavior: 'smooth' });
-      alert("⚠️ Voer eerst je kenteken in.");
+      setModalContent({
+        title: "Even geduld.",
+        message: "Voer eerst je kenteken in bovenaan de pagina voordat je een vignet kunt bestellen."
+      });
+      setIsModalOpen(true);
       return;
     }
 
@@ -130,8 +137,4 @@ export default function Home() {
                )}
             </div>
           )}
-        </div>
-      </div>
-    </>
-  );
-}
+        </div>\n      </div>\n\n      <ElegantModal \n        isOpen={isModalOpen} \n        onClose={() => setIsModalOpen(false)} \n        title={modalContent.title}\n        message={modalContent.message}\n      />\n    </>\n  );\n}
