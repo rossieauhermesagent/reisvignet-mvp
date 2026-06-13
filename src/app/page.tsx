@@ -106,7 +106,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Oostenrijk Vignet - Verschijnt alleen als Oostenrijk geselecteerd is */}
             {(selectedCountry === 'AT' || selectedCountry === 'Oostenrijk') && (
               <div className="bg-[#ff385c] border border-red-400 p-8 rounded-[40px] text-left relative overflow-hidden group shadow-2xl animate-in zoom-in duration-300">
                 <h3 className="text-2xl font-black text-white mb-2">Oostenrijk Vignet</h3>
@@ -137,4 +136,15 @@ export default function Home() {
                )}
             </div>
           )}
-        </div>\n      </div>\n\n      <ElegantModal \n        isOpen={isModalOpen} \n        onClose={() => setIsModalOpen(false)} \n        title={modalContent.title}\n        message={modalContent.message}\n      />\n    </>\n  );\n}
+        </div>
+      </div>
+
+      <ElegantModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={modalContent.title}
+        message={modalContent.message}
+      />
+    </>
+  );
+}
