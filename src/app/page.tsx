@@ -98,6 +98,18 @@ export default function Home() {
                 <button onClick={() => startCheckout('tolbadge-europa')} className="bg-white text-blue-800 px-6 py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform uppercase tracking-tighter">Bestel</button>
               </div>
             </div>
+
+            {/* Oostenrijk Vignet - Verschijnt alleen als Oostenrijk geselecteerd is */}
+            {(selectedCountry === 'AT' || selectedCountry === 'Oostenrijk') && (
+              <div className="bg-[#ff385c] border border-red-400 p-8 rounded-[40px] text-left relative overflow-hidden group shadow-2xl animate-in zoom-in duration-300">
+                <h3 className="text-2xl font-black text-white mb-2">Oostenrijk Vignet</h3>
+                <p className="text-red-100 mb-6 text-sm leading-relaxed">Digitaal vignet voor 2026. Direct geregistreerd.</p>
+                <div className="flex justify-between items-center mt-auto">
+                  <span className="text-2xl font-black text-white italic">€29,95</span>
+                  <button onClick={() => startCheckout('oostenrijk-vignet')} className="bg-white text-[#ff385c] px-6 py-3 rounded-2xl font-black text-sm hover:scale-105 transition-transform uppercase tracking-tighter">Bestel</button>
+                </div>
+              </div>
+            )}
           </div>
 
           {step === 'special_fields' && (

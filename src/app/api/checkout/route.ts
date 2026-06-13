@@ -5,11 +5,7 @@ export async function POST(request: Request) {
   try {
     const { productId, kenteken, vin, frontImage, backImage } = await request.json();
 
-    const prices: Record<string, { price: string, name: string }> = {
-      'frankrijk-sticker': { price: 'price_FR_STICKER', name: 'Milieusticker Frankrijk' },
-      'zwitserland-vignet': { price: 'price_CH_VIGNET', name: 'E-vignet Zwitserland' },
-    };
-
+    const prices: Record<string, { price: string, name: string }> = {\n      'frankrijk-sticker': { price: 'price_FR_STICKER', name: 'Milieusticker Frankrijk' },\n      'zwitserland-vignet': { price: 'price_CH_VIGNET', name: 'E-vignet Zwitserland' },\n      'oostenrijk-vignet': { price: 'price_AT_VIGNET', name: 'Digitaal vignet Oostenrijk' },\n      'tolbadge-europa': { price: 'price_BADGE', name: 'Tolbadge Europa' },\n    };\n
     const product = prices[productId];
 
     // Bij Frankrijk voegen we de extra documenten toe in metadata
@@ -31,7 +27,7 @@ export async function POST(request: Request) {
             product_data: {
               name: `${product.name} (${kenteken})`,
             },
-            unit_amount: productId === 'frankrijk-sticker' ? 1995 : 4995,
+            unit_amount: productId === 'frankrijk-sticker' ? 1995 : productId === 'tolbadge-europa' ? 2495 : productId === 'oostenrijk-vignet' ? 2995 : 4995,
           },
           quantity: 1,
         },
