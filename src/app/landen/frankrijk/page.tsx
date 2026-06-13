@@ -69,6 +69,12 @@ export default function FrankrijkPage() {
             <p>
               Voor de aanvraag hebben we alleen je kenteken en een kopie van je kentekenbewijs nodig. Wij zorgen voor de rest en jij gaat zorgeloos op reis.
             </p>
+
+            <div className="mt-12 p-8 bg-blue-600 rounded-3xl text-white">
+              <h4 className="text-xl font-bold mb-2 italic">Rijd je ook door de péage?</h4>
+              <p className="text-blue-100 text-sm mb-6">Voeg een tolbadge voor Frankrijk, Italië en Spanje toe aan je bestelling en voorkom wachttijden bij de tolpoorten.</p>
+              <Link href="/landen/tolbadge-europa" className="inline-block bg-white text-blue-600 font-bold px-6 py-3 rounded-full text-sm uppercase">Ontdek de Tolbadge</Link>
+            </div>
           </div>
         </div>
       </section>
